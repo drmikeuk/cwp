@@ -1,0 +1,21 @@
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      {% comment %} Only include pages with `nav: yes` in the front-matter; sort on sortTitle{% endcomment %}
+      {% assign pages = (site.pages | where: "nav","yes" | sort: "sortTitle" ) %}
+      {% for item in pages %}
+        {% comment %} add .active to current page {% endcomment %}
+        {% if page.url == item.url %}
+      <li class="nav-item active"><a class="nav-link" href="{{ item.url | prepend: site.baseurl }}">{{ item.title }}</a></li>
+        {% else %}
+      <li class="nav-item"><a class="nav-link" href="{{ item.url | prepend: site.baseurl }}">{{ item.title }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</nav>

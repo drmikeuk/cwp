@@ -1,0 +1,85 @@
+/* my styles */
+body              {padding: 0; margin: 0; background: #efefef}
+html, body, .map  {height: 100%; width: 100%;}
+.map				      {margin-bottom: 2em}
+
+.header           {background: #eee; border-bottom: 5px solid #ddd}
+.footer           {background: #efefef; padding: 3em 0 2em; margin-top: 2em}
+
+/* text styles */
+.tableauto        {width: auto}
+
+
+/* leaflet maps... */
+/* colours for controls - match FA icon colours */
+.red        {color: #D53E2A}
+.darkblue   {color: #0066A2}
+.gray       {color: #575757}
+
+.parishtooltip  {background: rgba(114,175,38, 0.5);  border: 1px solid rgba(114,175,38, 0.9)}
+
+/* swap all clusters to GREEN based on marker; internal div = less transparent) */
+.marker-cluster div   {color: white }
+/* was green */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large       {background-color: rgba(114,175,38, 0.5);}
+
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div   {background-color: rgba(114,175,38, 0.9);}
+
+
+/* D3 maps */
+/* body & not parish: pale grey efefef; parish: very pale grey fafafa; stroke: darker e5e5e5; hover: green  */
+.parish       {fill: #fafafa; stroke: #e5e5e5; stroke-width: 1px; }
+.parish:hover {fill: rgba(114,175,38, 0.5);; }
+/* Dots & Bubbles: blue for Royalist: #2c7bb6; Red for #d7191c Parliamentarian */
+.RoyalistDot         {fill: #2c7bb6;}
+.ParliamentarianDot  {fill: #d7191c;}
+.Royalist            {fill: rgba(44,123,182,0.5); stroke: #fff; stroke-width: .5px;}
+.Parliamentarian     {fill: rgba(215,25,28,0.5); stroke: #fff; stroke-width: .5px;}
+.tooltip {
+  position: absolute;
+  width: 150px;
+  line-height: 1;
+  padding: 5px;
+  background: rgba(43,43,43, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+.legend circle    {fill: none;stroke: #ABB2B9;}
+.legend text      {fill: #777; font: 10px sans-serif; text-anchor: middle;}
+
+
+
+
+/*
+ * Font Awesome Free 5.8.1 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ Need to include /vendor/fontawesome-5.8.1.min.css too
+ */
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+  src: url("../vendor/fa-regular-400.eot");
+  src: url("../vendor/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../vendor/fa-regular-400.woff2") format("woff2"), url("../vendor/fa-regular-400.woff") format("woff"), url("../vendor/fa-regular-400.ttf") format("truetype"), url("../vendor/fa-regular-400.svg#fontawesome") format("svg"); }
+
+.far {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 400; }
+
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 900;
+  font-display: auto;
+  src: url("../vendor/fa-solid-900.eot");
+  src: url("../vendor/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../vendor/fa-solid-900.woff2") format("woff2"), url("../vendor/fa-solid-900.woff") format("woff"), url("../vendor/fa-solid-900.ttf") format("truetype"), url("../vendor/fa-solid-900.svg#fontawesome") format("svg"); }
+
+.fa,
+.fas {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900; }

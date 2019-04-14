@@ -1,0 +1,12 @@
+# Site settings
+title: "CWP"
+baseurl: "" # the subpath of your site, e.g. /blog
+#url: "http://yourdomain.com" # the base hostname & protocol for your site
+port: 			  4010
+
+# Build settings
+#markdown: kramdown
+exclude: ["README.md"]
+
+#source "https://rubygems.org"
+#gem "github-pages", group: :jekyll_plugins

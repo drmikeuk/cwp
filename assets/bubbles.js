@@ -2,7 +2,7 @@
 ////////////////////////////
 // create SVG object
 var width = 1600,
-    height = 1200;
+    height = 950;
 
 // albers projection with this center & rotation is good for (whole of) UK
 // (manually) tweak for yorkshire
@@ -11,7 +11,7 @@ var width = 1600,
 // dont set center and scale  here - do on bounds once loaded instead
 var projection = d3.geoAlbers()
     .center([-1.345980498,	54.33668813])  // centriod from qgis
-    .center([3.07,	54.33668813]) // tweaked (I guess the rotate skews it?)
+    .center([3.07,	54.3]) // tweaked (I guess the rotate skews it?)
     .rotate([4.4, 0])
     .parallels([50, 60])
     .scale(38000*2)
@@ -23,8 +23,13 @@ var path = d3.geoPath()
 
 var svg = d3.select("#map").append("svg")
     .attr("id", "svg")
-    .attr("width", width)
-    .attr("height", height);
+    //.attr("width", width)
+    //.attr("height", height)  // responsive instead
+    //responsive SVG needs these 2 attributes and no width and height attr
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", "0 0 1600 950")
+    .classed("responsive-svg", true) //container class to make it responsive
+
 
 // add zoom see https://bl.ocks.org/vasturiano/f821fc73f08508a3beeb7014b2e4d50f
 // using SVG transforms to avoid the overhead of reprojecting at every zoom iteration.

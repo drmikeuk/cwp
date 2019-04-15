@@ -7,7 +7,7 @@ html, body, .map  {height: 100%; width: 100%;}
 .footer           {background: #efefef; padding: 3em 0 2em; margin-top: 2em}
 
 /* text styles */
-.tableauto        {width: auto}
+.tableauto        {width: auto;  /* ie overide  bootstrap  100% */}
 
 
 /* leaflet maps... */
@@ -31,6 +31,22 @@ html, body, .map  {height: 100%; width: 100%;}
 
 
 /* D3 maps */
+/* responsive svg container */
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 59.375%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+}
+/* responsive svg */
+.responsive-svg {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 /* body & not parish: pale grey efefef; parish: very pale grey fafafa; stroke: darker e5e5e5; hover: green  */
 .parish       {fill: #fafafa; stroke: #e5e5e5; stroke-width: 1px; }
 .parish:hover {fill: rgba(114,175,38, 0.5);; }

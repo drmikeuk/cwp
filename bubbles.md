@@ -10,7 +10,7 @@ customjs:
   - /assets/bubbles.js
 ---
 
-<div id="map" class="map"></div>
+<div id="map" class="map svg-container"></div>
 
 <div class="container" markdown="1">
 

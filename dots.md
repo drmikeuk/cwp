@@ -7,10 +7,11 @@ customjs:
   - /vendor/d3.v4.min.js
   - /vendor/topojson.v1.min.js  
   - /vendor/d3.queue.v1.min.js
+  - /vendor/d3-legend.min.js
   - /assets/dots.js
 ---
 
-<div id="map" class="map"></div>
+<div id="map" class="map svg-container"></div>
 
 <div class="container" markdown="1">
 

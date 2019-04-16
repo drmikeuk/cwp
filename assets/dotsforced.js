@@ -20,22 +20,6 @@ var projection = d3.geoAlbers()
 var path = d3.geoPath()
     .projection(projection);
 
-
-    var svgcontainer = d3.select('#map')
-        .append("div")
-        .classed("svg-container", true)
-
-    var svg = svgcontainer
-        .append("svg")
-        .attr("id", "svg")
-        //.attr("width", width)
-        //.attr("height", height)  // responsive instead
-        //responsive SVG needs these 2 attributes and no width and height attr
-        .attr("preserveAspectRatio", "xMinYMin meet")
-        .attr("viewBox", "0 0 1600 950")
-        .classed("responsive-svg", true) //container class to make it responsive
-
-/*
 var svg = d3.select("#map").append("svg")
     .attr("id", "svg")
     //.attr("width", width)
@@ -44,23 +28,6 @@ var svg = d3.select("#map").append("svg")
     .attr("preserveAspectRatio", "xMinYMin meet")
     .attr("viewBox", "0 0 1600 950")
     .classed("responsive-svg", true) //container class to make it responsive
-*/
-
-
-// add zoom see https://bl.ocks.org/vasturiano/f821fc73f08508a3beeb7014b2e4d50f
-// using SVG transforms to avoid the overhead of reprojecting at every zoom iteration.
-/*
-
-THIS DOESNT ZOOM THE DOTS AS THEY ARE  TRANSFORMED INTO PLACE
---> LOOK INTO REPROJECT ?
-
-var zoom = d3.zoom()
-    .scaleExtent([1, 8])
-    .on("zoom", zoomed);
-
-var g = svg.append("g");
-svg.call(zoom);
-*/
 
 // Setup tooltip div
 var div = d3.select("body").append("div")
@@ -72,9 +39,7 @@ var div = d3.select("body").append("div")
 // LOAD DATA (map & places)
 //////////////////////////////////////////////////////
 // see http://bl.ocks.org/mapsam/6090056
-
 var data = [];                           // global
-
 queue()
   .defer(d3.json, '/assets/northyorkshire.wgs84.topojson.json')    // Load map shape
   .defer(d3.csv, "/assets/northyorkshire.latlng.csv") 						  // Load statistics/data
@@ -82,8 +47,6 @@ queue()
 
 
 function makeMyMap(error, uk, data) {
-  // read data from CSV (Parish, Royalist,Parliamentarian,lat,lng)
-
   // add parishes to svg
   // parishes are all within "northyorkshire" (ie layername) within objects
   svg.selectAll("path")
@@ -105,13 +68,79 @@ function makeMyMap(error, uk, data) {
 			      .style("opacity", 0);			// remove change opacity
 			 })
 
-  // add circles for items (places) from CSV
+  // add force-directed circles for items (places) from CSV
+  // https://d3indepth.com/force-layout/
   // Style via css: Dots & Bubbles: blue for Royalist: #2c7bb6; Red for #d7191c Parliamentarian */
   //    .RoyalistDot         {fill: #2c7bb6;}
   //    .ParliamentarianDot  {fill: #d7191c;}
-  // person (aka post title), parish, allegiance, latlng
   /* NB convert lat long to projection
         see http://stackoverflow.com/questions/20987535/plotting-points-on-a-map-with-d3 */
+
+  // data contains: person (aka post title), parish, allegiance, latlng
+  // populate nodes array with X and Y converted via projection from latlng
+  var nodes=[];
+  for (var i = 0, len = data.length; i < len; i++)
+  {
+    var allegiance = data[i]["allegiance"];
+
+    var pieces = data[i]["latlng"].split(",");
+    var lat = pieces[0];
+    var long = pieces[1];
+    var location = projection([long,lat]);
+    var x = location[0];
+    var y = location[1];
+
+    //console.log (data[i]["id"] + ' ' + data[i]["parish"] + ' ' + allegiance + ' latlng ' + data[i]["latlng"] + ' = ' + x + ", " + y)
+    nodes.push({id: data[i]["id"], x: x, y: y, allegiance: allegiance, latlng: data[i]["latlng"]});
+  }
+  //console.log ('Nodes...')
+  //console.log (nodes)
+
+
+  var radius=4;
+
+  var simulation = d3.forceSimulation(nodes)
+     // attract to other elements (so clump) - was 5; reduce so less bigger clumps & more focused on location
+    .force('charge', d3.forceManyBody().strength(0))
+
+    // attract to location: set X and Y
+    .force('x', d3.forceX().x(function(d) {
+      return d.x
+    }))
+    .force('y', d3.forceY().y(function(d) {
+      return d.y
+    }))
+
+    // collision/overlap: no overlap + little bit padding
+    .force('collision', d3.forceCollide().radius(radius + 1))
+    .on('tick', ticked);
+
+
+  function ticked() {
+      var u = d3.select('svg')
+        .selectAll('circle')
+        .data(nodes);
+
+      u.enter()
+        .append('circle')
+        .attr('r', radius)
+        .attr("class", function(d) {
+          //console.log (d.allegiance);
+          return d.allegiance + 'Dot';
+        })
+        .merge(u)
+        .attr('cx', function(d) {
+          return d.x;
+        })
+        .attr('cy', function(d) {
+          return d.y;
+        })
+
+      u.exit().remove();
+  }
+
+
+/* plain dots....
   svg.selectAll("circle")
   .data(data).enter()
   .append("circle")
@@ -127,45 +156,8 @@ function makeMyMap(error, uk, data) {
     //console.log (d.person + ' ' + d.parish + ': ' + d.latlng + ' = ' + lat + ' and ' + long);
     return "translate(" + projection([long,lat]) + ")"; // NB projection wants LONG then LAT !!
    });
+*/
 
-
-   // ADD LEGEND see http://d3-legend.susielu.com/
-   ///////////////////////////////////////////////
-   var circle  = d3.symbol().type(d3.symbolCircle)();
-   var symbolScale =  d3.scaleOrdinal()
-      .domain(['Royalists','Parliamentarians'])
-      .range([circle, circle] );
-
-  var legendsvg = d3.select("svg").append("svg")
-      .attr("width", width)
-      .attr("height", 50);
-
-  legendsvg.append("g")
-    .attr("class", "mylegend")
-    //.attr("transform", "translate(" + (width - 100) + "," + (height - 20) + ")")
-    .attr("transform", "translate(200,200)"); //width-100?
-
-  mylegend = d3.legendSymbol()
-      .scale(symbolScale) 						   // creates lengend based on this D3 scale (created above)
-      .orient('horizontal');
-
-  legendsvg.select(".mylegend").call(mylegend); // add the legend to the svg
-
-
-  // DOWNLOAD SVG button ??
 
 
 }; // end makeMyMap
-
-
-
-// FUNCTIONS
-//////////////////////////////////////////
-
-// zoom...
-function zoomed() {
-  console.log ('Zoomed')
-    g
-        .selectAll('path') // To prevent stroke width from scaling
-        .attr('transform', d3.event.transform);
-    }

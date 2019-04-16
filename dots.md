@@ -11,7 +11,7 @@ customjs:
   - /assets/dots.js
 ---
 
-<div id="map" class="map svg-container"></div>
+<div id="map" class="map"></div>
 
 <div class="container" markdown="1">
 

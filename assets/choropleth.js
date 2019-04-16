@@ -1,8 +1,8 @@
 // SETUP
 ////////////////////////////
 // for SVG object
-var width = 800,
-    height = 600;
+var width = 1600,
+    height = 950;
 
 
 // LOAD DATA (map & places)
@@ -72,19 +72,28 @@ function makeMyMap(error, uk, data) {
     // dont set center and scale  here - do on bounds once loaded instead
     var projection = d3.geoAlbers()
         .center([-1.345980498,	54.33668813])  // centriod from qgis
-        .center([3.07,	54.33668813]) // tweaked (I guess the rotate skews it?)
+        .center([3.07,	54.3]) // tweaked (I guess the rotate skews it?)
         .rotate([4.4, 0])
         .parallels([50, 60])
-        .scale(38000)
+        .scale(38000*2)
         .translate([width / 2, height / 2]);
 
     var path = d3.geoPath()
         .projection(projection);
 
-    var svg = d3.select(target).append("svg")
+    var svgcontainer = d3.select(target)
+        .append("div")
+        .classed("svg-container", true)
+
+    var svg = svgcontainer
+        .append("svg")
         .attr("id", current)
-        .attr("width", width)
-        .attr("height", height);
+        //.attr("width", width)
+        //.attr("height", height)  // responsive instead
+        //responsive SVG needs these 2 attributes and no width and height attr
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("viewBox", "0 0 1600 950")
+        .classed("responsive-svg", true) //container class to make it responsive
 
     // Setup tooltip div
     var div = d3.select(target).append("div")
@@ -117,13 +126,18 @@ function makeMyMap(error, uk, data) {
 
         // ADD LEGEND see http://d3-legend.susielu.com/
         ///////////////////////////////////////////////
-        var legendsvg = d3.select(target).append("svg")
-            .attr("width", width)
-            .attr("height", 50)
-            //.attr("transform", "translate(10,540)");
-        svg.append("g")
-          .attr("class", "mylegend")
-          .attr("transform", "translate(10,540)"); 
+        //console.log ('select: ' + current); // eval('#' + current)
+        // svg ID = current eg Royalist so select #Royalist
+        var svgtarget = '#' + current;
+        //console.log ('target: ' + target + ' svgtarget: ' + svgtarget);
+        var legendsvg = d3.select(svgtarget).append("svg")
+            //.attr("width", width)
+            //.attr("height", 200)
+            .attr("class", "mylegend")
+            .attr("transform", "translate(0,0)");
+        //legendsvg.append("g")
+        //  .attr("class", "mylegend")
+          //.attr("transform", "translate(100,20)");
 
         // call(legendRoyalist) or legendParliamentarian
         svg.select(".mylegend").call(eval('legend' + current));

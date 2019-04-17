@@ -11,7 +11,7 @@ RoyalistbyParish = {};            // global
 ParliamentarianbyParish = {};
 var current = 'Royalist';         // global; default dataset (ie column from CSV)
 queue()
-  .defer(d3.json, '/assets/northyorkshire.wgs84.topojson.json')    // Load map shape
+  .defer(d3.json, '/assets/northyorkshire.dissolved.wgs84.topojson.json')    // Load map shape
   .defer(d3.csv, "/assets/northyorkshire.csv") 						  // Load statistics/data
   .await(makeMyMap);
 

@@ -78,10 +78,11 @@ var data = [];                           // global
 queue()
   .defer(d3.json, '/assets/northyorkshire.wgs84.topojson.json')    // Load map shape
   .defer(d3.csv, "/assets/northyorkshire.latlng.csv") 						  // Load statistics/data
+  .defer(d3.csv, "/assets/northyorkshire.labels.csv") 						 // Load labels for selected places
   .await(makeMyMap);
 
 
-function makeMyMap(error, uk, data) {
+function makeMyMap(error, uk, data, labels) {
   // read data from CSV (Parish, Royalist,Parliamentarian,lat,lng)
 
   // add parishes to svg
@@ -129,27 +130,62 @@ function makeMyMap(error, uk, data) {
    });
 
 
-   // ADD LEGEND see http://d3-legend.susielu.com/
-   ///////////////////////////////////////////////
-   var circle  = d3.symbol().type(d3.symbolCircle)();
-   var symbolScale =  d3.scaleOrdinal()
-      .domain(['Royalists','Parliamentarians'])
-      .range([circle, circle] );
 
-  var legendsvg = d3.select("svg").append("svg")
-      .attr("width", width)
-      .attr("height", 50);
+       // LABELS for selected places
+       svg.selectAll("places")
+       .data(labels).enter()
+       //.append('rect')
+       //.attr("width", "12px")
+       //.attr("height", "12px")
+       .append("circle")
+       .attr("r", "20px")
+       .attr("fill", "rgba(0,0,0,0.1)")
+       // classed so fill & stroke
+       .attr("transform", function(d) {
+         var pieces = d.latlng.split(",");
+         var lat = pieces[0];
+         var long = pieces[1];
+         return "translate(" + projection([long,lat]) + ")"; // NB projection wants LONG then LAT !!
+        });
 
-  legendsvg.append("g")
-    .attr("class", "mylegend")
-    //.attr("transform", "translate(" + (width - 100) + "," + (height - 20) + ")")
-    .attr("transform", "translate(200,200)"); //width-100?
+        /* labels */
+        svg.selectAll(".place-label")
+        .data(labels).enter()
+        .append("text")
+        .attr("class", "place-label")
+        .attr("transform", function(d) {
+          var pieces = d.latlng.split(",");
+          var lat = pieces[0];
+          var long = pieces[1];
+          return "translate(" + projection([long,lat]) + ")"; // NB projection wants LONG then LAT !!
+         })
+        .attr("dy", "0.55em")
+        .attr("dx", "24px")
+        .text(function(d) { return d.place; });
 
-  mylegend = d3.legendSymbol()
-      .scale(symbolScale) 						   // creates lengend based on this D3 scale (created above)
-      .orient('horizontal');
 
-  legendsvg.select(".mylegend").call(mylegend); // add the legend to the svg
+        // add legend bubbles for Royalist and Parliamentarian
+        var legendDots = svg.append("g")
+            .attr("transform", "translate(" + (width - 330) + "," + (height - 80) + ")");
+        legendDots.append("circle")
+            .attr("cx", "20")
+            .attr("cy", "20")
+            .attr("r", "12")
+            .attr("class", "RoyalistDot");
+        legendDots.append("text")
+             .attr("dx", "40")
+             .attr("dy", "26")
+             .text("Royalist")
+
+        legendDots.append("circle")
+            .attr("cx", "20")
+            .attr("cy", "50")
+            .attr("r", "12")
+            .attr("class", "ParliamentarianDot");
+        legendDots.append("text")
+           .attr("dx", "40")
+           .attr("dy", "56")
+           .text("Parliamentarian")
 
 
   // DOWNLOAD SVG button ??

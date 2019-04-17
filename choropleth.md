@@ -24,8 +24,8 @@ customjs:
 Notes
 -----
 - Outline map of parish boundaries (just) for Yorkshire North Riding
-- Colour in parish shape depending on count of Parliamentarians / Royalists
-- Range of reds for Parliamentarians and blues for Royalists
+- Colour in parish shape depending on count of Royalists / Parliamentarians
+- Range of blues for Royalists and reds for Parliamentarians
 - <i class="fas fa-exclamation-triangle"></i> NOT YET: On load zooms to bounds of map (ie focuses on county of interest)
 - <i class="fas fa-exclamation-triangle"></i> Don't display if no Parish
 

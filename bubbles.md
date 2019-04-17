@@ -19,7 +19,7 @@ Notes
 - Outline map of parish boundaries (just) for Yorkshire North Riding
 - Count number of Parliamentarian/Royalist per distinct place (ie unique latlng)
 - Bubble per distinct place, size based on number of payments
-- Red for Parliamentarian; Blue for Royalist
+- Blue for Royalist and red for Parliamentarian
 - <i class="fas fa-exclamation-triangle"></i> NOT YET: On load zooms to bounds of pins (ie focuses on county of interest)
 - <i class="fas fa-exclamation-circle"></i> Don’t display dot if latlng is null or 0,0
 

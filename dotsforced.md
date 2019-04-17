@@ -19,8 +19,8 @@ Notes
 -----
 - Outline map of parish boundaries (just) for Yorkshire North Riding
 - Dot per payment
-- <i class="fas fa-exclamation-triangle"></i> NOT YET: Force layout dots so don't overlap
-- Red for Parliamentarian; Blue for Royalist
+- Apply "force layout" to dots so they don't overlap but cluster *near* location
+- Blue for Royalist and red for Parliamentarian
 - <i class="fas fa-exclamation-triangle"></i> NOT YET: On load zooms to bounds of pins (ie focuses on county of interest)
 - <i class="fas fa-exclamation-circle"></i> Don’t display dot if latlng is null or 0,0
 

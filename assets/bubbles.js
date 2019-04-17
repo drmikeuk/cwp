@@ -63,10 +63,11 @@ var legend;
 queue()
   .defer(d3.json, '/assets/northyorkshire.wgs84.topojson.json')    // Load map shape
   .defer(d3.csv, "/assets/northyorkshire.latlng.csv") 						  // Load statistics/data
+  .defer(d3.csv, "/assets/northyorkshire.labels.csv") 						 // Load labels for selected places
   .await(makeMyMap);
 
 
-function makeMyMap(error, uk, data) {
+function makeMyMap(error, uk, data, labels) {
   // read data from CSV (Parish, Royalist,Parliamentarian,lat,lng)
 
   // add parishes to svg (NB. if zoom then add to g not svg)
@@ -171,6 +172,42 @@ function makeMyMap(error, uk, data) {
      });
 
 
+     // LABELS for selected places
+/* dont need circles as already got one per place
+    svg.selectAll("places")
+     .data(labels).enter()
+     //.append('rect')
+     //.attr("width", "12px")
+     //.attr("height", "12px")
+     .append("circle")
+     .attr("r", "20px")
+     .attr("fill", "rgba(0,0,0,0.1)")
+     // classed so fill & stroke
+     .attr("transform", function(d) {
+       var pieces = d.latlng.split(",");
+       var lat = pieces[0];
+       var long = pieces[1];
+       return "translate(" + projection([long,lat]) + ")"; // NB projection wants LONG then LAT !!
+      });
+      */
+
+      /* labels */
+      svg.selectAll(".place-label")
+      .data(labels).enter()
+      .append("text")
+      .attr("class", "place-label")
+      .attr("transform", function(d) {
+        var pieces = d.latlng.split(",");
+        var lat = pieces[0];
+        var long = pieces[1];
+        return "translate(" + projection([long,lat]) + ")"; // NB projection wants LONG then LAT !!
+       })
+      .attr("dy", "0.55em")
+      .attr("dx", "24px")
+      .text(function(d) { return d.place; });
+
+
+
      // LEGEND
      ////////////////////////////////////
      var legendData = [5, max/2,  max];
@@ -192,12 +229,33 @@ function makeMyMap(error, uk, data) {
          .text(d3.format(""));
 
      // add bubbles for Royalist and Parliamentarian
-     var Royalist = svg.append("g")
-         .attr("class", "legend")
-         .attr("transform", "translate(" + (width - 200) + "," + (height - 20) + ")")
-         .selectAll("g")
-         //.data(legendData)
-         .enter().append("g");
+     var legendDots = svg.append("g")
+         .attr("transform", "translate(" + (width - 330) + "," + (height - 80) + ")");
+
+     legendDots.append("circle")
+         .attr("cx", "20")
+         .attr("cy", "20")
+         .attr("r", "12")
+         .attr("class", "Royalist");
+
+     legendDots.append("text")
+          .attr("dx", "40")
+          .attr("dy", "26")
+          .text("Royalist")
+
+
+     legendDots.append("circle")
+         .attr("cx", "20")
+         .attr("cy", "50")
+         .attr("r", "12")
+         .attr("class", "Parliamentarian");
+
+     legendDots.append("text")
+        .attr("dx", "40")
+        .attr("dy", "56")
+        .text("Parliamentarian")
+
+
 
 }; // end makeMyMap
 

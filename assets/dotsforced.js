@@ -42,11 +42,12 @@ var div = d3.select("body").append("div")
 var data = [];                           // global
 queue()
   .defer(d3.json, '/assets/northyorkshire.wgs84.topojson.json')    // Load map shape
-  .defer(d3.csv, "/assets/northyorkshire.latlng.csv") 						  // Load statistics/data
+  .defer(d3.csv, "/assets/northyorkshire.latlng.csv") 						 // Load statistics/data
+  .defer(d3.csv, "/assets/northyorkshire.labels.csv") 						 // Load labels for selected places
   .await(makeMyMap);
 
 
-function makeMyMap(error, uk, data) {
+function makeMyMap(error, uk, data, labels) {
   // add parishes to svg
   // parishes are all within "northyorkshire" (ie layername) within objects
   svg.selectAll("path")
@@ -113,7 +114,8 @@ function makeMyMap(error, uk, data) {
 
     // collision/overlap: no overlap + little bit padding
     .force('collision', d3.forceCollide().radius(radius + 1))
-    .on('tick', ticked);
+    .on('tick', ticked)
+    .on('end', drawlabels);
 
 
   function ticked() {
@@ -140,23 +142,62 @@ function makeMyMap(error, uk, data) {
   }
 
 
-/* plain dots....
-  svg.selectAll("circle")
-  .data(data).enter()
-  .append("circle")
-  .attr("r", "5px")
-  .attr("class", function(d) {
-    //console.log (d.allegiance);
-    return d.allegiance + 'Dot';
-  })
-  .attr("transform", function(d) {
-    var pieces = d.latlng.split(",");
-    var lat = pieces[0];
-    var long = pieces[1];
-    //console.log (d.person + ' ' + d.parish + ': ' + d.latlng + ' = ' + lat + ' and ' + long);
-    return "translate(" + projection([long,lat]) + ")"; // NB projection wants LONG then LAT !!
-   });
-*/
+  function drawlabels() {
+      // LABELS for selected places
+      svg.selectAll("places")
+      .data(labels).enter()
+      //.append('rect')
+      //.attr("width", "12px")
+      //.attr("height", "12px")
+      .append("circle")
+      .attr("r", "20px")
+      .attr("fill", "rgba(0,0,0,0.1)")
+      // classed so fill & stroke
+      .attr("transform", function(d) {
+        var pieces = d.latlng.split(",");
+        var lat = pieces[0];
+        var long = pieces[1];
+        return "translate(" + projection([long,lat]) + ")"; // NB projection wants LONG then LAT !!
+       });
+
+       /* labels */
+       svg.selectAll(".place-label")
+       .data(labels).enter()
+       .append("text")
+       .attr("class", "place-label")
+       .attr("transform", function(d) {
+         var pieces = d.latlng.split(",");
+         var lat = pieces[0];
+         var long = pieces[1];
+         return "translate(" + projection([long,lat]) + ")"; // NB projection wants LONG then LAT !!
+        })
+       .attr("dy", "0.55em")
+       .attr("dx", "24px")
+       .text(function(d) { return d.place; });
+
+       // add legend bubbles for Royalist and Parliamentarian
+       var legendDots = svg.append("g")
+           .attr("transform", "translate(" + (width - 330) + "," + (height - 80) + ")");
+       legendDots.append("circle")
+           .attr("cx", "20")
+           .attr("cy", "20")
+           .attr("r", "12")
+           .attr("class", "RoyalistDot");
+       legendDots.append("text")
+            .attr("x", "40")
+            .attr("y", "26")
+            .text("Royalist")
+
+       legendDots.append("circle")
+           .attr("cx", "20")
+           .attr("cy", "50")
+           .attr("r", "12")
+           .attr("class", "ParliamentarianDot");
+       legendDots.append("text")
+          .attr("x", "40")
+          .attr("y", "56")
+          .text("Parliamentarian")
+  }
 
 
 

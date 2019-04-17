@@ -2,10 +2,10 @@ Parish boundaries
 -----------------
 - 1831Counties shapefile
 - Filter for GAZ_CNTY = YORKSHIRE, NORTH RIDING
-- Save selected features as new geojson file
-- Simplify 50% on mapshaper.org & save as topojson (reduces filesize & thus load time)
-- <i class="fas fa-exclamation-circle"></i> Not consolidated parishes into one shape (so eg Skelton = 6 neighbouring shapes)
-
+- Save selected features as new geojson file (1043 features; 3.6MB)
+- Dissolve features with same parish name and save as geojson (199 features; 2MB)
+- Simplify 20% on mapshaper.org and save as geojson (199 features; 450kb)
+- Save as topojson which reduces filesize, & thus load time, even further (199 features; 100kb)
 
 Payments data
 -------------

@@ -76,7 +76,7 @@ var div = d3.select("body").append("div")
 var data = [];                           // global
 
 queue()
-  .defer(d3.json, '/assets/northyorkshire.wgs84.topojson.json')    // Load map shape
+  .defer(d3.json, '/assets/northyorkshire.dissolved.wgs84.topojson.json')    // Load map shape
   .defer(d3.csv, "/assets/northyorkshire.latlng.csv") 						  // Load statistics/data
   .defer(d3.csv, "/assets/northyorkshire.labels.csv") 						 // Load labels for selected places
   .await(makeMyMap);

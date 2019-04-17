@@ -63,7 +63,7 @@ var data = [];
 $(document).ready(function() {
   // LOAD COUNTY SHAPE
   var counties = $.ajax({
-    url:"/assets/northyorkshire.wgs84.geojson",
+    url:"/assets/northyorkshire.dissolved.wgs84.geojson",
     dataType: "json",
     //success: console.log("County data successfully loaded."),
     error: function (xhr) {

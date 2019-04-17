@@ -126,21 +126,42 @@ function makeMyMap(error, uk, data) {
 
         // ADD LEGEND see http://d3-legend.susielu.com/
         ///////////////////////////////////////////////
-        //console.log ('select: ' + current); // eval('#' + current)
-        // svg ID = current eg Royalist so select #Royalist
-        var svgtarget = '#' + current;
-        //console.log ('target: ' + target + ' svgtarget: ' + svgtarget);
-        var legendsvg = d3.select(svgtarget).append("svg")
-            //.attr("width", width)
-            //.attr("height", 200)
+
+        /* v1: within map svg & translate to bottom of map...
+
+        var legendsvg = svg.append("g")               // add to current SVG (ie within map)
             .attr("class", "mylegend")
-            .attr("transform", "translate(0,0)");
-        //legendsvg.append("g")
-        //  .attr("class", "mylegend")
-          //.attr("transform", "translate(100,20)");
+            .attr("transform", "translate(20," + (height - 60) + ")");
+
+
+        v2: below map svg -- breaks responsive!
+        var legendsvg = d3.select(target).append("svg")   // add to map DIV (ie new SVG below map SVG)
+            .attr("class", "mylegend")
+            .attr("width", width)
+            .attr("height", 200)
+        */
+
+
+        //var legendsvg = svg.append("g")               // add to current SVG (ie within map)
+        var svgcontainer = d3.select(target)
+            .append("div")
+            .classed("svg-container", true)
+            .attr("style", "padding-bottom: 12.5%; /* aspect ratio */")
+
+        var legendsvg = svgcontainer.append("svg")    // add to map DIV (ie new SVG below map SVG)
+            .attr("class", "mylegend")
+            .attr("preserveAspectRatio", "xMinYMin meet")
+            .attr("viewBox", "0 0 800 100")
+            .classed("responsive-svg", true) //container class to make it responsive
+
+        var legendg = legendsvg.append("g")
+            .attr("transform", "translate(20,20)");
 
         // call(legendRoyalist) or legendParliamentarian
-        svg.select(".mylegend").call(eval('legend' + current));
+        legendg.call(eval('legend' + current));
+
+
+
 
 
   }; // end drawMap

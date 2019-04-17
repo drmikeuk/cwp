@@ -19,7 +19,7 @@ customjs:
   - /assets/leafletclusters.js
 ---
 
-<div id="map" class="map"></div>
+<div id="map" class="map leaflet"></div>
 
 <div class="container" markdown="1">
 

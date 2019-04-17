@@ -1,13 +1,13 @@
 /* my styles */
-body              {padding: 0; margin: 0; background: #efefef}
-html, body, .map  {height: 100%; width: 100%;}
-.map				      {margin-bottom: 2em}
+body                  {padding: 0; margin: 0; background: #efefef}
+html, body, .leaflet  {height: 100%; width: 100%;}
+.map				          {margin-bottom: 2em}
 
-.header           {background: #eee; border-bottom: 5px solid #ddd}
-.footer           {background: #efefef; padding: 3em 0 2em; margin-top: 2em}
+.header               {background: #eee; border-bottom: 5px solid #ddd}
+.footer               {background: #efefef; padding: 3em 0 2em; margin-top: 2em}
 
 /* text styles */
-.tableauto        {width: auto;  /* ie overide  bootstrap  100% */}
+.tableauto            {width: auto;  /* ie overide  bootstrap  100% */}
 
 
 /* leaflet maps... */
@@ -68,10 +68,6 @@ html, body, .map  {height: 100%; width: 100%;}
 .legend text      {fill: #777; font: 10px sans-serif; text-anchor: middle;}
 
 
-
-
-.legendsvg      {border: 1px solid blue}
-.mylegend       {border: 1px solid pink}
 
 
 

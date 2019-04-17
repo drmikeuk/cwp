@@ -11,7 +11,7 @@ Payments data
 -------------
 - CSV from export listing all payments
 - Filter for person_location_county = yorkshire, north riding
-- Calculate allegiance based on payment date (<1600 = Parliamentarian; >1600 = Royalist)
+- Calculate allegiance based on payment date (<1660 = Parliamentarian; >1660 = Royalist)
 - Save CSV with fields as listed below
 - <i class="fas fa-exclamation-circle"></i> Export contains latlng but not name of this place
 

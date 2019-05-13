@@ -256,6 +256,18 @@ function makeMyMap(error, uk, data, labels) {
         .text("Parliamentarian")
 
 
+    // DOWNLOAD SVG button
+    // https://stackoverflow.com/questions/23218174/how-do-i-save-export-an-svg-file-after-creating-an-svg-with-d3-js-ie-safari-an
+    var svgData = document.getElementById("svg").outerHTML;
+    var svgBlob = new Blob([svgData], {type:"image/svg+xml;charset=utf-8"});
+    var svgUrl = URL.createObjectURL(svgBlob);
+    var downloadLink = document.createElement("a");
+    downloadLink.id = 'downloadLink';
+    downloadLink.href = svgUrl;
+    downloadLink.download = "map.svg";
+    var linkText = document.createTextNode("Download as SVG");
+    downloadLink.appendChild(linkText);
+    document.getElementById("download").appendChild(downloadLink);
 
 }; // end makeMyMap
 

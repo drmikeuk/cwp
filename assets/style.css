@@ -68,6 +68,14 @@ html, body, .leaflet  {height: 100%; width: 100%;}
 .legend text      {fill: #777; font: 10px sans-serif; text-anchor: middle;}
 
 
+/* extra styles to mimic CWP in wordpress */
+
+.wordpress            {font-family: Merriweather,Georgia,Times New Roman,serif; color: #333; font-size: 120%; font-weight: 300; margin-top: 40px}
+.map-container        { text-align: center;  padding-top: 30px; max-width: 69rem; margin: 0 auto;}
+.wordpress .mapX       {width: 100%; max-width: 69rem; margin: 0 auto;}
+
+.wordpress h2 {font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-weight: 400; padding-top: 2em}
 
 
 

@@ -78,6 +78,13 @@ html, body, .leaflet  {height: 100%; width: 100%;}
     font-weight: 400; padding-top: 2em}
 
 
+.tableauto .subhead              {border-bottom: 1px solid #999 }
+.tableauto thead tr              {border-top: 1px solid #999; border-bottom: 3px solid #999; font-weight: bold}
+
+.tableauto td                    {text-align: right}
+.tableauto td:nth-child(1)       {text-align: left}
+.tableauto .data td:nth-child(1) {padding-left: 2em}
+
 
 /*
  * Font Awesome Free 5.8.1 by @fontawesome - https://fontawesome.com

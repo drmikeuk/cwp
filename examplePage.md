@@ -24,19 +24,28 @@ customjs:
   <div class="map-container">
     <h2>Claimants resident in  the county</h2>
     <div id="map" class="map svg-container"></div>
+    <p>ClaimantsNotes: Edit in admin config somewhere; appears on all county pages. The same for all counties<p>
+    <p>Optional free text box in page template; optional; different per page</p>
   </div>
 
 
   <div class="container" >
     <h2>Claimants resident in  the county</h2>
     <div id="claimants"></div>
+    <p>ClaimantsNotes: Edit in admin config somewhere; appears on all county pages. The same for all counties<p>
+    <p>Optional free text box in page template; optional; different per page</p>
 
     <h2>Gratuities paid in the county</h2>
     <div id="gratuities"></div>
+    <p>table...</p>
+    <p>GratuitiesNotes: Edit in admin config somewhere; appears on all county pages. The same for all counties<p>
+    <p>Optional free text box in page template; optional; different per page</p>
 
     <h2>Pensions paid in the county</h2>
     <div id="pensions"></div>
-
+    <p>table...</p>
+    <p>PensionsNotes: Edit in admin config somewhere; appears on all county pages. The same for all counties<p>
+    <p>Optional free text box in page template; optional; different per page</p>
   </div>
 
 </div>

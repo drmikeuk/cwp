@@ -2,7 +2,7 @@
 title: "CWP"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://cwp.mikegardner.me.uk" # the base hostname & protocol for your site
-port: 			  4010
+port: 			  4102
 
 # Build settings
 #markdown: kramdown

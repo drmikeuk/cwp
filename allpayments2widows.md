@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "All widows v2"
+title: "All (widows v2)"
 nav: "yes"
 sortTitle: "8"
 customjs:

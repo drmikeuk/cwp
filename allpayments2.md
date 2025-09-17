@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "All v2"
+title: "All (v2)"
 nav: "yes"
 sortTitle: "7"
 customjs:

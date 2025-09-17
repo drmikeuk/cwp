@@ -113,7 +113,13 @@ function makeMyMap(error, uk, data, labels) {
                   //console.log(latlng + ' ' + key2 + ' = ' + rollup[key][key2]["count"]);
                   //console.log(latlng + ' ' + allegiance + ' = ' + count);
                   // ---> push to pins array!
-                  pins.push({parish: "x", allegiance: allegiance, latlng: latlng, count: count});
+                  // pins.push({parish: "x", allegiance: allegiance, latlng: latlng, count: count});
+
+                  //pins.push({parish: "x", allegiance: allegiance, latlng: latlng, count: count});
+                  if (latlng != ''){
+                    pins.push({parish: "x", allegiance: allegiance, latlng: latlng, count: count});
+                  }
+
               }
           }
       }
@@ -127,10 +133,10 @@ function makeMyMap(error, uk, data, labels) {
   // https://d3indepth.com/scales/
   var max = d3.max(pins, function(d) { return parseFloat(d.count); });
   max =  Math.ceil(max / 10) * 10;
-  //console.log ('Max: ' + max)
+  console.log ('Max: ' + max)
   var radius = d3.scaleSqrt()
       .domain([0, max])
-      .range([0, 90]);
+      .range([0, 30]);
 
   // draw Bubbles
   svg.selectAll("circle")

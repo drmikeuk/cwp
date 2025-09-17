@@ -114,7 +114,11 @@ function makeMyMap(error, uk, data, labels) {
                   //console.log(latlng + ' ' + key2 + ' = ' + rollup[key][key2]["count"]);
                   //console.log(latlng + ' ' + allegiance + ' = ' + count);
                   // ---> push to pins array!
-                  pins.push({parish: "x", allegiance: allegiance, latlng: latlng, count: count});
+                  //pins.push({parish: "x", allegiance: allegiance, latlng: latlng, count: count});
+                  if (latlng != ''){
+                    pins.push({parish: "x", allegiance: allegiance, latlng: latlng, count: count});
+                  }
+
               }
           }
       }
@@ -126,12 +130,16 @@ function makeMyMap(error, uk, data, labels) {
   // NB When using circle size to represent data, it’s considered better practice to set the area, rather than the radius proportionally to the data.
   // so use The scaleSqrt scale is a special case of the power scale (where k = 0.5) and is useful for sizing circles by area (rather than radius).
   // https://d3indepth.com/scales/
+
+
+  // widows: use MAX from ALL so 280
+
   var max = d3.max(pins, function(d) { return parseFloat(d.count); });
   max =  Math.ceil(max / 10) * 10;
   //console.log ('Max: ' + max)
   var radius = d3.scaleSqrt()
-      .domain([0, max])
-      .range([0, 90]);
+      .domain([0, 280])
+      .range([0, 30]);          
 
   // draw Bubbles
   svg.selectAll("circle")

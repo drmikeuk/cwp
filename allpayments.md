@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "All payments"
+title: "All (clusters)"
 nav: "yes"
 sortTitle: "7"
 # leaflet.1.0.1 + awesome-markers + MarkerCluster

@@ -53,8 +53,12 @@ html, body, .leaflet  {height: 100%; width: 100%;}
 /* Dots & Bubbles: blue for Royalist: #2c7bb6; Red for #d7191c Parliamentarian */
 .RoyalistDot         {fill: #2c7bb6;}
 .ParliamentarianDot  {fill: #d7191c;}
-.Royalist            {fill: rgba(44,123,182,0.5); stroke: #fff; stroke-width: .5px;}
-.Parliamentarian     {fill: rgba(215,25,28,0.5); stroke: #fff; stroke-width: .5px;}
+.Royalist, .royalist            {fill: rgba(44,123,182,0.5); stroke: #fff; stroke-width: .5px;}
+.Parliamentarian, .parliamentarian     {fill: rgba(215,25,28,0.5); stroke: #fff; stroke-width: .5px;}
+.other   {fill: #F2F527;}
+.unknown {fill: #cccccc;}
+
+
 .tooltip {
   position: absolute;
   min-width: 150px;
@@ -66,6 +70,12 @@ html, body, .leaflet  {height: 100%; width: 100%;}
 }
 .legend circle    {fill: none;stroke: #ABB2B9;}
 .legend text      {fill: #777; font: 10px sans-serif; text-anchor: middle;}
+
+
+/* all2 map styles */
+.all2 .parish     {stroke: #72AF26; stroke-width: 1px; stroke-opacity: 0.65}
+
+
 
 
 /* extra styles to mimic CWP in wordpress */

@@ -136,7 +136,7 @@ function makeMyMap(error, uk, data, labels) {
   console.log ('Max: ' + max)
   var radius = d3.scaleSqrt()
       .domain([0, max])
-      .range([0, 30]);
+      .range([2, 40]);
 
   // draw Bubbles
   svg.selectAll("circle")

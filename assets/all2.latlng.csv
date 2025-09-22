@@ -17616,3 +17616,9 @@
 70431,parliamentarian,war_widow,County of Suffolk (exact location undefined/uncertain),suffolk,0,,publish,publish
 70429,parliamentarian,war_widow,County of Suffolk (exact location undefined/uncertain),suffolk,0,,publish,publish
 43608,parliamentarian,maimed_soldier,County of Suffolk (exact location undefined/uncertain),suffolk,0,,draft,publish
+1000001,parliamentarian,maimed_soldier,"Landrake (Landrake Parish), Cornwall",cornwall,landrake,"50.4218,-4.28933",,
+1000002,parliamentarian,maimed_soldier,"St Eval (St Eval Parish), Cornwall",cornwall,st eval,"50.4789,-4.98272",,
+1000003,royalist,maimed_soldier,"Helston (Wendron Parish), Cornwall",cornwall,wendron,"50.1016,-5.27303",,
+1000004,royalist,war_widow,"Trerice (Newlyn Parish), Cornwall",cornwall,newlyn east,"50.3867,-5.03850",,
+1000005,royalist,other_dependent,"St Michael Caerhays (St Michael Caerhays Parish), Cornwall",cornwall,st michael caerhays,"50.2430,-4.85828",,
+1000006,royalist,other_dependent,"St Michael Caerhays (St Michael Caerhays Parish), Cornwall",cornwall,st michael caerhays,"50.2430,-4.85828",,

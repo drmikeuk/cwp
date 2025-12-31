@@ -6,7 +6,7 @@ var width = 950,
 
 // albers projection with this center & rotation is good for (whole of) UK: center([0, 55.4]); rotate([4.4, 0])
 var projection = d3.geoAlbers()
-    .center([2, 53])           // strarted with above and tweaked until looked beter
+    .center([2, 52.9])           // strarted with above and tweaked until looked beter
     .rotate([3.5, 0])
     .parallels([50, 60])
     .scale(9000)
@@ -17,12 +17,29 @@ var path = d3.geoPath()
 
 var svg = d3.select("#map").append("svg")
     .attr("id", "svg")
-    //.attr("width", width)
-    //.attr("height", height)  // responsive instead
+    .attr("width", width)    // EXCLUDE as responsive instead
+    .attr("height", height)  // EXCLUDE as responsive instead
+    .style("background", "white")  // NEW FOR PRINT
     //responsive SVG needs these 2 attributes and no width and height attr
-    .attr("preserveAspectRatio", "xMinYMin meet")
-    .attr("viewBox", "0 0 1600 950")
-    .classed("responsive-svg", true) //container class to make it responsive
+    //.attr("preserveAspectRatio", "xMinYMin meet")
+    //.attr("viewBox", "0 0 1600 950")
+    //.classed("responsive-svg", true) //container class to make it responsive
+
+
+// ALL PAYMENTS - WANT INLINE STYLES  =================================
+var styles = ".parish     {fill: white; stroke: #72AF26; stroke-width: 1px;}\n";
+styles += ".RoyalistDot         {fill: #2c7bb6;}\n";
+styles += ".ParliamentarianDot  {fill: #d7191c;}\n";
+styles += ".Royalist, .royalist            {fill: rgba(44,123,182,0.5); stroke: #fff; stroke-width: .5px;}\n";
+styles += ".Parliamentarian, .parliamentarian     {fill: rgba(215,25,28,0.5); stroke: #fff; stroke-width: .5px;}\n";
+styles += ".other   {fill: rgba(204,204,204,0.5); stroke: #fff; stroke-width: .5px;}\n";
+styles += ".legend circle    {fill: none;stroke: #ABB2B9;}\n";
+styles += ".legend text      {fill: #777; font: 10px sans-serif; text-anchor: middle;}\n";
+
+d3.select('svg').append('defs').append('style').attr("type", "text/css").text(styles);
+
+
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 // add zoom see https://bl.ocks.org/vasturiano/f821fc73f08508a3beeb7014b2e4d50f
@@ -269,7 +286,7 @@ function makeMyMap(error, uk, data, labels) {
     var downloadLink = document.createElement("a");
     downloadLink.id = 'downloadLink';
     downloadLink.href = svgUrl;
-    downloadLink.download = "map.svg";
+    downloadLink.download = "allpaymentsWidows.svg";
     var linkText = document.createTextNode("Download as SVG");
     downloadLink.appendChild(linkText);
     document.getElementById("download").appendChild(downloadLink);

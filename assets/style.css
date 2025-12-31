@@ -1,3 +1,4 @@
+
 /* my styles */
 body                  {padding: 0; margin: 0; background: #efefef}
 html, body, .leaflet  {height: 100%; width: 100%;}
@@ -74,6 +75,25 @@ html, body, .leaflet  {height: 100%; width: 100%;}
 
 /* all2 map styles */
 .all2 .parish     {stroke: #72AF26; stroke-width: 1px; stroke-opacity: 0.65}
+
+
+
+
+
+
+/* temp for print ver =========================================================== */
+/* temp red border */
+#XsvgX          {border: 2px solid red}
+
+#svg          {background: white}
+.parish       {fill: white; stroke: #e5e5e5; stroke-width: 3px; }
+
+
+/* temp for print ver =========================================================== */
+
+
+
+
 
 
 
